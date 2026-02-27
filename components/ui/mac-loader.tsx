@@ -89,9 +89,9 @@ export const MacLoader = ({ onFinish }: { onFinish: () => void }) => {
                 className="fill-white/[0.06] stroke-white/[0.1]"
                 strokeWidth="0.5"
               />
-              {/* N */}
+              {/* S */}
               <motion.path
-                d="M17 38V18L27 38V18"
+                d="M17 24C17 20.6863 19.6863 18 23 18C26.3137 18 29 20.6863 29 24C29 27.3137 26.3137 30 23 30C19.6863 30 17 32.6863 17 36C17 39.3137 19.6863 42 23 42C26.3137 42 29 39.3137 29 36"
                 stroke="white"
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -101,9 +101,9 @@ export const MacLoader = ({ onFinish }: { onFinish: () => void }) => {
                 animate={{ pathLength: 1, opacity: 0.9 }}
                 transition={{ duration: 1.2, ease: "easeInOut" }}
               />
-              {/* D */}
+              {/* J */}
               <motion.path
-                d="M31 18H36C40.4183 18 44 22.4772 44 28C44 33.5228 40.4183 38 36 38H31V18Z"
+                d="M41 18V32C41 35.3137 38.3137 38 35 38C31.6863 38 29 35.3137 29 32"
                 stroke="white"
                 strokeWidth="2"
                 strokeLinecap="round"

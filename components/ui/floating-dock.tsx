@@ -49,38 +49,58 @@ const FloatingDockMobile = ({
         {open && (
           <motion.div
             layoutId="nav"
-            className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2"
+            className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-[260px] h-[120px] flex items-end justify-center"
+            style={{ pointerEvents: 'none' }}
           >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <a
-                  href={item.href}
+            {items.map((item, idx) => {
+              // Arrange items along a semicircle (reverse U)
+              const total = items.length;
+              const radius = 60; // px, reduced for tighter arc
+              // Angle 0 = left, pi = right, pi/2 = top
+              // We want first and last to be at angle pi and 0, and the toggle at pi/2 (bottom center)
+              // So, angle goes from pi to 0
+              const angleStep = Math.PI / (total - 1);
+              const angle = Math.PI - idx * angleStep;
+              // To align first and last with the toggle, shift the whole arc down by radius (so y=0 at bottom)
+              const x = radius * Math.cos(angle);
+              const y = radius * Math.sin(angle) - radius;
+              return (
+                <motion.div
                   key={item.title}
-                  aria-label={item.title}
-                  {...(item.href.startsWith("http")
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/[0.1] shadow-xl"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: 10,
+                    transition: {
+                      delay: idx * 0.05,
+                    },
+                  }}
+                  transition={{ delay: (items.length - 1 - idx) * 0.05 }}
+                  style={{
+                    position: 'absolute',
+                    left: `calc(50% + ${x}px - 20px)`,
+                    bottom: `calc(0px + ${y}px)`,
+                    pointerEvents: 'auto',
+                  }}
                 >
-                  <div className="h-4 w-4 text-foreground">{item.icon}</div>
-                </a>
-              </motion.div>
-            ))}
+                  <a
+                    href={item.href}
+                    key={item.title}
+                    aria-label={item.title}
+                    {...(item.href.startsWith("http")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/[0.1] shadow-xl"
+                  >
+                    <div className="h-4 w-4 text-foreground">{item.icon}</div>
+                  </a>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>
@@ -92,6 +112,11 @@ const FloatingDockMobile = ({
       >
         <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
       </button>
+      <style jsx>{`
+        .reverse-u-mobile-nav > * {
+          transition: transform 0.3s;
+        }
+      `}</style>
     </div>
   );
 };

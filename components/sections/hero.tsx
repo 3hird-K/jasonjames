@@ -167,7 +167,7 @@ export function HeroSection() {
             Get in Touch
           </a>
           <a
-            href="https://drive.google.com/uc?export=download&confirm=t&id=1xo5CqqxqvOXlHEUEFx7bzwNaMETG2PMJ"
+            href="https://drive.google.com/uc?export=download&confirm=t&id=1MpRyiR8c5OEz3u5ptb5ZuoJFFX1Mp1ps"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-input hover:border-primary hover:text-primary font-semibold text-sm transition-all shadow-sm"
